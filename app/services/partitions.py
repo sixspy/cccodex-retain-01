@@ -1,5 +1,10 @@
 import sqlite3
 
+_FIELDS = (
+    "id, domain_code, biz_date, row_count, storage_state, archive_uri, "
+    "policy_version, landed_version, created_at"
+)
+
 
 def list_partitions(
     conn: sqlite3.Connection,
@@ -16,10 +21,7 @@ def list_partitions(
         params.append(storage_state)
     where = (" WHERE " + " AND ".join(clauses)) if clauses else ""
     rows = conn.execute(
-        "SELECT id, domain_code, biz_date, row_count, storage_state, "
-        "archive_uri, created_at FROM partitions"
-        + where
-        + " ORDER BY domain_code, biz_date",
+        f"SELECT {_FIELDS} FROM partitions" + where + " ORDER BY domain_code, biz_date",
         params,
     ).fetchall()
     return [dict(r) for r in rows]
@@ -27,8 +29,7 @@ def list_partitions(
 
 def get_partition(conn: sqlite3.Connection, partition_id: int) -> dict | None:
     row = conn.execute(
-        "SELECT id, domain_code, biz_date, row_count, storage_state, "
-        "archive_uri, created_at FROM partitions WHERE id = ?",
+        f"SELECT {_FIELDS} FROM partitions WHERE id = ?",
         (partition_id,),
     ).fetchone()
     return dict(row) if row else None

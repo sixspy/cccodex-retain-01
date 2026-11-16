@@ -10,13 +10,18 @@
   <header class="topbar">
     <div>
       <h1 id="lab-title">留存裁撤台</h1>
-      <p class="sub" id="lab-sub">分区留存策略 → 到期裁决 → 归档/销毁执行 → 策略与实物对账</p>
+      <p class="sub" id="lab-sub">分区留存策略版本 → 入库落库 → 到期裁决 → 归档/销毁执行 → 策略与实物对账</p>
     </div>
-    <button class="secondary" id="btn-logout" type="button">退出</button>
+    <div class="topbar-right">
+      <span class="switch-mode" id="switch-mode" title="全台换版路径">换版：整库原子切换</span>
+      <button class="secondary" id="btn-logout" type="button">退出</button>
+    </div>
   </header>
   <div class="layout">
     <nav class="nav" id="nav">
       <button type="button" data-view="policies" class="active">留存策略</button>
+      <button type="button" data-view="switch">策略换版</button>
+      <button type="button" data-view="landing">入库落库</button>
       <button type="button" data-view="partitions">实物分区</button>
       <button type="button" data-view="scan">到期扫描</button>
       <button type="button" data-view="judgments">裁决执行</button>
@@ -24,6 +29,7 @@
     </nav>
     <main class="main" id="main"></main>
   </div>
+  <div id="toast" class="toast" hidden></div>
   <script src="/static/js/app.js"></script>
 </body>
 </html>
